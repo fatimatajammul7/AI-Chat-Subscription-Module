@@ -1,0 +1,31 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  userId    String
+  question  String
+  answer    String
+  createdAt DateTime @default(now())
+}
+
+model UserUsage {
+  userId           String @id
+  freeQuotaUsed    Int
+  bundleQuotaUsed  Int
+}
+
+model Subscription {
+  id         String   @id @default(uuid())
+  userId     String
+  plan       String
+  autoRenew  Boolean
+  startDate  DateTime
+  endDate    DateTime
+}
